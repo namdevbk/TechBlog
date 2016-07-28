@@ -1,0 +1,81 @@
+<div class="blog" ng-controller="SinglePostController" data-ng-init="findOne()">
+    <div class="container">
+    <div class="row">
+      <div class="col-md-8" >
+        <article>
+          <h2>{{blog.title}}</h2>
+            <div class="row" >
+                <div class="col-sm-6 col-md-6">
+                  <span>By:</span> &nbsp;<a href="#">{{blog.author}}</a>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <span class="glyphicon glyphicon-comment"></span> <a href="#comments">{{blog.comments.length}} comments&nbsp;&nbsp;</a><span class="glyphicon glyphicon-time"></span> {{blog.created_at | date: 'medium' }}                    
+                </div>
+            </div>
+            <br/>
+            <div class="row" >
+                <div class="col-sm-6 col-md-6">
+                  <span class="glyphicon glyphicon-trash">&nbsp;<a href="" ng-click="deletePost(blog._id)">Delete</a></span>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <span class="glyphicon glyphicon-pencil">&nbsp;<a href="" ng-click="updatePost(blog._id)">Edit</a></span>
+                </div>
+            </div>
+            <hr>
+            <br />
+            <p class="lead">{{blog.description}}</p>
+            <hr>
+        </article>
+        <ul class="pager">
+		<li class="previous"><a href="/blogs">&larr; Back to posts</a></li>
+		</ul>		
+
+		<!-- Comment form -->
+		<div class="well">
+			<h4>Leave a comment</h4>
+			<form role="form" class="clearfix" name="myForm" novalidate>
+			  <div class="col-md-6 form-group">
+          <label class="sr-only" for="name">Name</label>
+          <input type="text" class="form-control" id="name" ng-model="name" placeholder="Name">
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="sr-only" for="email">Email</label>
+          <input type="email" class="form-control" name="email" ng-model="email" placeholder="Email">
+        </div>
+        <span class="error" ng-show="myForm.email.$error.email">Not a valid email!</span>
+        <div class="col-md-12 form-group">
+			    <label class="sr-only" for="comment">Comment</label>
+			    <textarea name="comment" class="form-control" ng-model="comment" placeholder="Comment message" required=""></textarea>
+			  </div>
+			  <div class="col-md-12 form-group text-right">
+			  	<button type="submit"  ng-disabled="myForm.$invalid" class="btn btn-primary" ng-click=addComment()>Submit</button>
+			  </div>
+			</form>					
+		</div>
+		<hr/>
+		<ul id="comments" class="comments" ng-repeat="singleComment in blog.comments">
+			<li class="comment">
+				<div class="clearfix">
+					<h5 class="pull-left">By: {{singleComment.name}}</h5>
+					<p class="pull-right">{{singleComment.date | date: 'medium'}}</p>
+				</div>
+				<p>
+					<em>{{singleComment.comment}}</em>
+				</p>
+			</li>
+		</ul>
+      </div>
+      <div class="col-md-4">
+        <!-- Latest Posts -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Latest Posts</h4>
+          </div>
+          <ul class="list-group"  ng-repeat="blog in blogs">
+            <li class="list-group-item"><a href="#" ng-click='singlepost(blog._id)'>* {{blog.title}}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.blog span {
+    font-weight: bold;
+}
+
+#description {
+	margin: 0px -2px 0px 0px;
+    height: 384px;
+    width: 1170px;
+}
+
+.article {
+    height: 40px;
+}
+
+.error {
+	color:red;
+}
